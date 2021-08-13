@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>weather</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    body{
+      overflow: hidden;
+    }
+    #imageContainer{
+      width: 80px;
+      height: 80px;
+    }
+    #imageContainer img{
+      height: 100%;
+      width: 100%;
+    }
+    #desc{
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body  style="background-image: url({% static 'css/weather.jpg' %});
+               background-repeat: no-repeat;
+               background-attachment: fixed;
+               background-size: 100% 100%">
+  <nav class="row" style="background: skyblue; color: white;">
+    <div align="center" ><h1 class="col-md-3 text-center">Weather Forcast</h1></div>
+  </nav>
+  <br />
+  <br />
+
+  <center class="row">
+    <form action="" method="post" class="col-md-6 col-md-offset-3">
+      {% csrf_token %}
+      <div class="input-group">
+          <h1 style="color: green">select your city</h1>
+     <!-- <input type="text" class="form-control" name="city" placeholder="Search"> -->
+          <select name="city" class="select_city">
+            <option value="Kolkata">Kolkata</option>
+            <option value="chennai">chennai</option>
+            <option value="Lahore">Lahore</option>
+            <option value="London">London</option>
+            <option value="india">india</option>
+              <option value="Delhi">Delhi</option>
+              <option value="mumbai">mumbai</option>
+              <option value="bhopal">bhopal</option>
+              <option value="bhubaneswar">bhubaneswar</option>
+              <option value="hyderabad">hyderabad</option>
+              <option value="patna">patna</option>
+              <option value="pune">pune</option>
+              <option value="tokyo">tokyo</option>
+              <option value="paris">paris</option>
+              <option value="singapore">singapore</option>
+              <option value="beijing">beijing</option>
+              <option value="barcelona">barcelona</option>
+              <option value="beirut">beirut</option>
+              <option value="bergen">bergen</option>
+              <option value="budapest">budapest</option>
+              <option value="cape town">cape town</option>
+              <option value="peru">peru</option>
+              <option value="doha">doha</option>
+              <option value="scotland">scotland</option>
+              <option value="Italy">Italy</option>
+              <option value="cuba">cuba</option>
+              <option value="hanoi">hanoi</option>
+              <option value="china">china</option>
+              <option value="turkey">turkey</option>
+              <option value="japan">japan</option>
+              <option value="Laos">Laos</option>
+        </select>
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </center>
+
+  <div class="row">
+    {% if city is not None %}
+    <div class="col-md-6 col-md-offset-3">
+      <h1>{{city | capfirst}}</h1>
+      <div id = 'desc'><h3>Description: {{data.weather_description | capfirst}}</h3>
+        <div id = 'imageContainer'><img src = 'http://openweathermap.org/img/w/{{data.weather_icon}}.png'></div>
+        </div>
+        <h3>Temperature: {{data.weather_temperature}}C</h3>
+        <h3>Pressure: {{data.weather_pressure}}</h3>
+        <h3>Humidity: {{data.weather_humidity}}</h3>
+    </div>
+      {% endif %}
+  </div>
+</body>
+
+</html>
+
+
+
